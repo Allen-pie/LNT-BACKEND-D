@@ -13,6 +13,7 @@
             <th scope="col">Item Name</th>
             <th scope="col">Item Description</th>
             <th scope="col">Item Stock</th>
+             <th scope="col">Item Image</th>
             <th scope="col">Action</th>
         </tr>
     </thead>
@@ -24,6 +25,13 @@
                 <td>{{$item->name}}</td>
                 <td>{{$item->description}}</td>
                 <td>{{$item->stock}}</td>
+
+                 <td> 
+                    <img src="{{ asset('storage/' . $item->img_path) }}" style="height:50px;"/>
+
+                </td>
+
+
                 <td style="display: flex; gap: 5px;">
                     <a class="btn btn-primary" href="{{ route('view.update.item', $item->id) }}">
                         Update

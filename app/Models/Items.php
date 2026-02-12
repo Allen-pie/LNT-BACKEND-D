@@ -17,7 +17,8 @@ class Items extends Model
         'name',
         'description',
         'stock',
-        'category_id'
+        'category_id',
+        'img_path'
     ];
 
     // liat dari nama methodnya (category())
