@@ -4,6 +4,7 @@ use App\Http\Controllers\ItemsController;
 use App\Models\ItemCategories;
 use App\Models\Items;
 use App\Models\Warehouses;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -62,3 +63,19 @@ Route::get('/test', function(){
 
     return response()->json($items);
 });
+
+Route::get('/api/item/list', function(){
+    $items = Items::limit(10)->get();
+    return response()->json($items);
+});
+
+
+Route::post('/api/item/add', function(Request $request){
+    $item = Items::create($request->all());
+    // dd($item);
+
+    return response()->json($item, 201);
+});
+
+
+
