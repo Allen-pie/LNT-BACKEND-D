@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Models\Items;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -20,9 +21,8 @@ class ItemDetailsFactory extends Factory
             'weight' => fake()->randomFloat(2, 1, 10),
             'length' => fake()->randomFloat(2, 1, 10),
             'width' => fake()->randomFloat(2, 1, 10),
-            'height'=> fake()->randomFloat(2, 1, 10),
-            'manufacturer' => fake()->company(),
-            'item_id' => fake()->numberBetween(1, 10)
+            'height'=> fake()->randomDigitNotZero(),
+            'manufacturer' => fake()->company()
         ];
     }
 }

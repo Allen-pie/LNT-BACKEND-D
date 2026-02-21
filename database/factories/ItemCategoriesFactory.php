@@ -17,7 +17,7 @@ class ItemCategoriesFactory extends Factory
     public function definition(): array
     {
         return [
-            'category' => fake()->colorName()
+            'category' => fake()->company()
         ];
     }
 }
