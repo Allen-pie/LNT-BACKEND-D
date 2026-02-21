@@ -24,20 +24,11 @@ class DatabaseSeeder extends Seeder
         //     'email' => 'test@example.com',
         // ]);
 
-        // ItemCategories::factory(5)->create();
-
-        // Items::factory(10)->create();
-        
-        // ItemDetails::create([
-        //     'weight' => fake()->randomFloat(2, 1, 10),
-        //     'length' => fake()->randomFloat(2, 1, 10),
-        //     'width' => fake()->randomFloat(2, 1, 10),
-        //     'height'=> fake()->randomFloat(2, 1, 10),
-        //     'manufacturer' => fake()->company(),
-        //     'item_id' => 2
-        // ]);
-
-
-        Warehouses::factory(5)->create();
+       $this->call([
+            ItemCategoriesSeeder::class,
+            ItemsSeeder::class,
+            ItemDetailsSeeder::class,
+            WarehousesSeeder::class
+       ]);
     }
 }
