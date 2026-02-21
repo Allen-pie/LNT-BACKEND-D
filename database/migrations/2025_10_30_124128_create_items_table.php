@@ -16,6 +16,7 @@ return new class extends Migration
             $table->string('name');
             $table->text('description')->nullable();
             $table->integer('stock');
+            $table->text('img_path');
 
             // $table->unsignedInteger('category_id'); 
             // $table->foreign('category_id')->references('id')->on('item_categories')->onUpdate('cascade')->onDelete('cascade');
