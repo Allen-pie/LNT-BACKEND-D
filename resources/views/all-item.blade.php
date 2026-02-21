@@ -21,14 +21,14 @@
 
         @foreach($items as $idx=> $item)
             <tr>
-                <th >{{ $idx + 1 }}</th>
+                <th >{{ $item->id  }}</th>
                 <td>{{$item->name}}</td>
                 <td>{{$item->description}}</td>
                 <td>{{$item->stock}}</td>
 
                  <td> 
-                    <img src="{{ asset('storage/' . $item->img_path) }}" style="height:50px;"/>
-
+                    <!-- <img src="{{ asset('storage/' . $item->img_path) }}" style="height:50px;"/> -->
+                    <img src="{{ $item->img_path }}" style="height:50px;"/>
                 </td>
 
 
@@ -47,5 +47,7 @@
 
     </tbody>
 </table>
+
+{{ $items->links() }}
 
 @endsection

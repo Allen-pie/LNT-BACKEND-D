@@ -78,7 +78,7 @@ class ItemsController extends Controller
     }
 
     public function getItems(){
-        $items = Items::all();
+        $items = Items::paginate(5);
         // dd($items[0]->name);
         return view('all-item', compact('items'));
     }
