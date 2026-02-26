@@ -6,19 +6,18 @@
 <section style="padding: 100px;">
 
     <h1>
-        Register Form
+        Login  Form
     </h1>
 
-    <form action="/register" method="POST">
+    @error('message')
+        <h4>
+            {{$message}}
+        </h4>
+    @enderror
+
+    <form action="/login" method="POST">
         @csrf
-        <div class="mb-3">
-            <label for="exampleInputEmail1" class="form-label">Name</label>
-            <input type="text" class="form-control @error('name') is-invalid @enderror" name="name">
-            @error('name') 
-                <p class="">{{ $message }}</p>
-            @enderror
-        </div>
-        <div class="mb-3">
+         <div class="mb-3">
             <label for="exampleInputEmail1" class="form-label">Email address</label>
             <input type="email" class="form-control @error('email') is-invalid @enderror" name="email">
             @error('email') 
@@ -32,10 +31,6 @@
         @error('password') 
                 <p class="">{{ $message }}</p>
          @enderror
-        <div class="mb-3">
-            <label for="exampleInputPassword1" class="form-label">Confirm Password</label>
-            <input type="password" class="form-control @error('password') is-invalid @enderror" name="password_confirmation">
-        </div>
         <button type="submit" class="btn btn-primary">Submit</button>
     </form>
 </section>

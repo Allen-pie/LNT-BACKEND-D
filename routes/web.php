@@ -1,6 +1,9 @@
 <?php
 
+use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ItemsController;
+use App\Http\Middleware\AdminOnly;
+use App\Http\Middleware\SimpleAuth;
 use App\Models\ItemCategories;
 use App\Models\Items;
 use App\Models\Warehouses;
@@ -19,23 +22,23 @@ Route::get('/collection', function(){
     return view('collection');
 });
 
-Route::get('/register', function(){
-    return view('register');
-});
+Route::get('/register', [AuthController::class, 'viewRegister']);
+Route::post('/register', [AuthController::class, 'register'] );
 
-Route::post('/submit', function(){
-    return true;
-});
+Route::get('/login', [AuthController::class, 'viewLogin']);
+Route::post('/login', [AuthController::class, 'login'] );
+
+Route::post('/logout' , [AuthController::class, 'logout']);
 
 Route::prefix('item')->group(function (){
-    Route::get('/add', [ItemsController::class , 'addItemView'])->name('view.add.item');
-    // /list
-    Route::get('/list', [ItemsController::class, 'getItems'])->name('list.item');
-    Route::get('/{id}', [ItemsController::class, 'updateItemView'])->name('view.update.item');
-
-    Route::put('/{id}', [ItemsController::class , 'updateItem'])->name('update.item');
-    Route::delete('/{id}', [ItemsController::class, 'deleteItem'])->name('delete.item');
-    Route::post('/add', [ItemsController::class, 'addItem'])->name('add.item');
+    Route::get('/list', [ItemsController::class, 'getItems'])->name('list.item')->middleware([SimpleAuth::class]);
+    Route::middleware([SimpleAuth::class, AdminOnly::class])->group(function(){
+        Route::get('/add', [ItemsController::class , 'addItemView'])->name('view.add.item');
+        Route::get('/{id}', [ItemsController::class, 'updateItemView'])->name('view.update.item');
+        Route::put('/{id}', [ItemsController::class , 'updateItem'])->name('update.item');
+        Route::delete('/{id}', [ItemsController::class, 'deleteItem'])->name('delete.item');
+        Route::post('/add', [ItemsController::class, 'addItem'])->name('add.item');
+    });
 });
 
 Route::get('/test', function(){
@@ -65,7 +68,7 @@ Route::get('/test', function(){
 });
 
 Route::get('/api/item/list', function(){
-    $items = Items::limit(10)->get();
+    $items = Items::get(['id', 'name']);
     return response()->json($items);
 });
 
@@ -74,7 +77,12 @@ Route::post('/api/item/add', function(Request $request){
     $item = Items::create($request->all());
     // dd($item);
 
-    return response()->json($item, 201);
+    return response()->json([
+        'alamak' => [
+            'huh' => $item,
+            'a' => []
+        ]
+    ], 201);
 });
 
 

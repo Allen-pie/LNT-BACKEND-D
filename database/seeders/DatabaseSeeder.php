@@ -19,10 +19,12 @@ class DatabaseSeeder extends Seeder
     {
         // User::factory(10)->create();
 
-        // User::factory()->create([
-        //     'name' => 'Test User',
-        //     'email' => 'test@example.com',
-        // ]);
+        User::factory()->create([
+            'name' => 'admin_allen',
+            'email' => 'allen@gmail.com',
+            'password' => 'allen123',
+            'role' => 'admin'
+        ]);
 
        $this->call([
             ItemCategoriesSeeder::class,

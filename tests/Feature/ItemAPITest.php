@@ -23,15 +23,23 @@ class ItemAPITest extends TestCase
 
         $response = $this->getJson('/api/item/list');
 
-        $response->assertJsonStructure(
-            ['*' =>  [
-                'name',
-                'description',
-                'stock',
-                'category_id',
-                'img_path'
-            ]]
-        );
+
+        $response->assertExactJsonStructure(['*' =>  [
+            'id',
+            'name',
+            // 'description',
+            // 'stock',
+            // 'category_id',
+            // 'img_path'
+        ]]);
+
+        // harus terpenuhin setidaknya di strukturnya
+        // $response->assertJsonStructure(
+        //     ['*' =>  [
+        //         'id',
+        // 'name',
+        //     ]]
+        // );
 
         $response->assertStatus(200);
     }
@@ -51,19 +59,30 @@ class ItemAPITest extends TestCase
         ];
 
         $response = $this->postJson('/api/item/add', $data);
-        $response->assertJsonStructure(
-            [
-                'name',
-                'description',
-                'stock',
-                'category_id',
-                'img_path'
+        // $response->assertJsonStructure(
+        //     ['alamak' =>    
+        //         [
+        //             'id',
+        //             'name',
+        //             'description',
+        //             'stock',
+        //             'category_id',
+        //             'img_path'
+        //         ]
+        //     ]
+        // );
+
+        // buat cek nesting
+        $response->assertJsonFragments([
+            'alamak' => [
+                'category_id'=>1
             ]
+        ]);
 
-        );
-
+        // buat cek kyk cocokin regexp gitu bruh
         $response->assertJsonFragment([
-            'name' => 'Kambing'
+                'category_id'=>1,
+                'a' => []
         ]);
 
         $this->assertDatabaseHas('items', [

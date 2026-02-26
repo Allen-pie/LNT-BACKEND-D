@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\ItemDetails;
 use App\Models\Items;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
@@ -72,6 +73,8 @@ class ItemsController extends Controller
     public function deleteItem(int $id){
         // dump and die
         $item = Items::findOrFail($id);
+        $item->detail()->delete();
+        $item->warehouses()->delete();
         Storage::disk('public')->delete($item->img_path);
         $item->delete();
         return back();

@@ -6,6 +6,13 @@
 
 @include('components.navbar')
 
+
+@error('message')
+<h3 class="text-danger">
+    {{$message}}
+</h3>
+@enderror
+
 <table class="table">
     <thead>
         <tr>
