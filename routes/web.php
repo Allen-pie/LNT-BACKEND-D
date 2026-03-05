@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ItemsController;
+use App\Http\Controllers\UserController;
 use App\Http\Middleware\AdminOnly;
 use App\Http\Middleware\SimpleAuth;
 use App\Models\ItemCategories;
@@ -84,6 +85,7 @@ Route::post('/api/item/add', function(Request $request){
         ]
     ], 201);
 });
+
 
 
 
